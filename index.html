@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="styles.css">
+
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+
+
+
+
+  <script type="text/javascript" src="script.js"></script>
+
+
+
+
+  <title>IP Address Tracker</title>
+</head>
+
+<body>
+
+  <div class="center">
+    IP Address Tracker
+    <input />
+    <button onclick="">Go</button>
+    IP Address
+    <p></p>
+    Location
+    <p></p>
+    Timezone
+    <p></p>
+    UTC
+    <p></p>
+    ISP
+    <p></p>
+  </div>
+
+  <div id='map' style='width: 400px; height: 300px;'></div>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWljaGFlbHNhdHVtYmFtYXBzIiwiYSI6ImNrdm15Z204YjAzajIyb3F2YWRkcjFuaWQifQ.X0jvoZunwGoLmk00y6CNog';
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11'
+    });
+  </script>
+
+
+
+  <!-- add offset value dynamically using the API -->
+
+
+  <div class="attribution">
+    Coded by <a href="#">Michael Satumba</a>.
+  </div>
+</body>
+
+</html>
