@@ -1,9 +1,44 @@
 // alert('hello');
 
-window.onload = function () {
-	findMe();
-};
+mapboxgl.accessToken =
+	'pk.eyJ1IjoibWljaGFlbHNhdHVtYmFtYXBzIiwiYSI6ImNrdm15Z204YjAzajIyb3F2YWRkcjFuaWQifQ.X0jvoZunwGoLmk00y6CNog';
 
+navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
+	enableHighAccuracy: true,
+});
+
+function successLocation(position) {
+	console.log(position);
+	setupMap([position.coords.longitude, position.coords.latitude]);
+}
+
+function errorLocation() {
+	setupMap([-122.4194, 37.7749]);
+}
+
+function setupMap(center) {
+	const map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/mapbox/streets-v11',
+		center: center,
+		zoom: 15,
+	});
+
+	const nav = new mapboxgl.NavigationControl();
+	map.addControl(nav);
+
+	var directions = new MapboxDirections({
+		accessToken: mapboxgl.accessToken,
+	});
+
+	map.addControl(directions, 'top-left');
+}
+
+// window.onload = function () {
+// 	findMe();
+// };
+
+/*
 // location logic
 function findMe() {
 	// const status = document.querySelector('.place');
@@ -36,3 +71,4 @@ function findMe() {
 
 	navigator.geolocation.getCurrentPosition(success, error);
 }
+*/
