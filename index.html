@@ -21,28 +21,26 @@
 
 
 
-  <title>IP Address Tracker</title>
+  <title>Calorie-Map</title>
 </head>
 
 <body>
 
   <div class="center">
-    IP Address Tracker
+    Point A
+    <input />
+    Point B
     <input />
     <button onclick="">Go</button>
-    IP Address
+    Minutes
     <p></p>
-    Location
+    Distance
     <p></p>
-    Timezone
-    <p></p>
-    UTC
-    <p></p>
-    ISP
+    Calories Expended
     <p></p>
   </div>
 
-  <div id='map' style='width: 400px; height: 300px;'></div>
+  <div id='map' style='width: 100%; height: 400px;'></div>
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibWljaGFlbHNhdHVtYmFtYXBzIiwiYSI6ImNrdm15Z204YjAzajIyb3F2YWRkcjFuaWQifQ.X0jvoZunwGoLmk00y6CNog';
     var map = new mapboxgl.Map({
@@ -53,12 +51,8 @@
 
 
 
-  <!-- add offset value dynamically using the API -->
 
 
-  <div class="attribution">
-    Coded by <a href="#">Michael Satumba</a>.
-  </div>
 </body>
 
 </html>
