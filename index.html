@@ -19,35 +19,29 @@
     href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
     type="text/css">
 
-
-
-
   <script type="text/javascript" src="script.js" defer></script>
 
-
-
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>Calorie-Map-Web</title>
 </head>
 
 <body>
-
-
   <div class="center">
-    <input id='weight' type='number' placeholder="Please enter your weight" />
-    Calories Expended
+    <!-- <img src="images/pattern-bg.png" alt=""> -->
+    <input id='weight' type='number' placeholder="Please enter your weight" class="form-control" />
+    <p class="title">Calories Expended</p>
     <p id='caloriesExpended'></p>
+    <div class="form-check form-switch">
+      <input onClick="remove()" class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked">Directions</label>
+    </div>
   </div>
 
   <div id='map'></div>
-
-
-
-
-
-
-
-
 </body>
 
 </html>

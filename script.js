@@ -29,18 +29,177 @@ function setupMap(center) {
 	const nav = new mapboxgl.NavigationControl();
 	map.addControl(nav);
 
-	const directions = new MapboxDirections({
+	let directions = new MapboxDirections({
 		accessToken: mapboxgl.accessToken,
 		unit: 'imperial',
 		profile: 'mapbox/walking',
 		alternatives: true,
 		congestion: true,
-		// geocoder:
+		controls: {
+			inputs: true,
+			instructions: true,
+			profileSwitcher: true,
+		},
+		styles: [
+			{
+				id: 'directions-route-line-alt',
+				type: 'line',
+				source: 'directions',
+				layout: {
+					'line-cap': 'round',
+					'line-join': 'round',
+				},
+				paint: {
+					'line-color': '#bbb',
+					'line-width': 4,
+				},
+				filter: [
+					'all',
+					['in', '$type', 'LineString'],
+					['in', 'route', 'alternate'],
+				],
+			},
+			{
+				id: 'directions-route-line-casing',
+				type: 'line',
+				source: 'directions',
+				layout: {
+					'line-cap': 'round',
+					'line-join': 'round',
+				},
+				paint: {
+					'line-color': '#E45826', // orange
+					'line-width': 12,
+				},
+				filter: [
+					'all',
+					['in', '$type', 'LineString'],
+					['in', 'route', 'selected'],
+				],
+			},
+			{
+				id: 'directions-route-line',
+				type: 'line',
+				source: 'directions',
+				layout: {
+					'line-cap': 'butt',
+					'line-join': 'round',
+				},
+				paint: {
+					'line-color': {
+						property: 'congestion',
+						type: 'categorical',
+						default: '#4882c5',
+						stops: [
+							['unknown', '#4882c5'],
+							['low', '#4882c5'],
+							['moderate', '#f09a46'],
+							['heavy', '#e34341'],
+							['severe', '#8b2342'],
+						],
+					},
+					'line-width': 7,
+				},
+				filter: [
+					'all',
+					['in', '$type', 'LineString'],
+					['in', 'route', 'selected'],
+				],
+			},
+			{
+				id: 'directions-hover-point-casing',
+				type: 'circle',
+				source: 'directions',
+				paint: {
+					'circle-radius': 8,
+					'circle-color': '#fff',
+				},
+				filter: ['all', ['in', '$type', 'Point'], ['in', 'id', 'hover']],
+			},
+			{
+				id: 'directions-hover-point',
+				type: 'circle',
+				source: 'directions',
+				paint: {
+					'circle-radius': 6,
+					'circle-color': '#3bb2d0',
+				},
+				filter: ['all', ['in', '$type', 'Point'], ['in', 'id', 'hover']],
+			},
+			{
+				id: 'directions-waypoint-point-casing',
+				type: 'circle',
+				source: 'directions',
+				paint: {
+					'circle-radius': 8,
+					'circle-color': '#fff',
+				},
+				filter: ['all', ['in', '$type', 'Point'], ['in', 'id', 'waypoint']],
+			},
+			{
+				id: 'directions-waypoint-point',
+				type: 'circle',
+				source: 'directions',
+				paint: {
+					'circle-radius': 6,
+					'circle-color': '#8a8bc9',
+				},
+				filter: ['all', ['in', '$type', 'Point'], ['in', 'id', 'waypoint']],
+			},
+			{
+				id: 'directions-origin-point',
+				type: 'circle',
+				source: 'directions',
+				paint: {
+					'circle-radius': 18,
+					'circle-color': '#3bb2d0',
+				},
+				filter: ['all', ['in', '$type', 'Point'], ['in', 'marker-symbol', 'A']],
+			},
+			{
+				id: 'directions-origin-label',
+				type: 'symbol',
+				source: 'directions',
+				layout: {
+					'text-field': 'A',
+					'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+					'text-size': 12,
+				},
+				paint: {
+					'text-color': '#fff',
+				},
+				filter: ['all', ['in', '$type', 'Point'], ['in', 'marker-symbol', 'A']],
+			},
+			{
+				id: 'directions-destination-point',
+				type: 'circle',
+				source: 'directions',
+				paint: {
+					'circle-radius': 18,
+					'circle-color': '#8a8bc9',
+				},
+				filter: ['all', ['in', '$type', 'Point'], ['in', 'marker-symbol', 'B']],
+			},
+			{
+				id: 'directions-destination-label',
+				type: 'symbol',
+				source: 'directions',
+				layout: {
+					'text-field': 'B',
+					'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+					'text-size': 12,
+				},
+				paint: {
+					'text-color': '#fff',
+				},
+				filter: ['all', ['in', '$type', 'Point'], ['in', 'marker-symbol', 'B']],
+			},
+		],
 	});
 
 	map.on('load', function () {
-		directions.setOrigin('Oxnard'); // On load, set the origin.
-		directions.setDestination('Ventura'); // On load, set the destination.
+		directions.setOrigin('Purple Kow'); // On load, set the origin.
+		directions.setDestination('Alemany Farm'); // On load, set the destination.
 	});
 
 	directions.on('route', function (e) {
@@ -78,4 +237,30 @@ function setupMap(center) {
 		const walkingMins = 60
         ((3 * (160 * 0.45359237) * 3.5 ) / 200) * 60
 	*/
+
+	// // frustrating!
+	// function remove() {
+	// 	// console.log(directions.options.controls.instructions);
+	// 	// directions.options.controls.instructions = true;
+	// 	// console.log(directions.options.controls.instructions);
+	// 	alert('hello');
+	// }
 }
+
+function remove() {
+	let steps = document.querySelector('.directions-control-directions');
+	// steps.style.display = 'none'; // works!
+
+	if (steps.style.display != 'none') {
+		steps.style.display = 'none';
+	} else {
+		steps.style.display = 'inherit';
+	}
+}
+
+// function traffic() {
+// 	let traffic = document.getElementById(
+// 		'mapbox-directions-profile-driving-traffic'
+// 	);
+// 	traffic.target = '_blank';
+// }
