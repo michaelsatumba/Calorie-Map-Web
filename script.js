@@ -251,12 +251,27 @@ function remove() {
 	let steps = document.querySelector('.directions-control-directions');
 	// steps.style.display = 'none'; // works!
 
-	if (steps.style.display != 'none') {
+	let input = document.querySelector('.form-check-input');
+
+	if (steps.style.display !== 'none') {
 		steps.style.display = 'none';
 	} else {
 		steps.style.display = 'inherit';
 	}
 }
+
+// on refresh calls functions
+// window.onload = function () {
+// 	let steps = document.querySelector('.directions-control-directions');
+
+// 	let input = document.querySelector('.form-check-input');
+
+// 	if (steps.style.display !== 'none') {
+// 		steps.style.display = 'none';
+// 	} else {
+// 		steps.style.display = 'inherit';
+// 	}
+// };
 
 // function traffic() {
 // 	let traffic = document.getElementById(
