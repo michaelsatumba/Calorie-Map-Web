@@ -16,10 +16,13 @@ body {
 .title {
 	color: white;
 	font-weight: 400;
+	letter-spacing: 3px;
 }
 
 #caloriesExpended {
 	color: white;
+	font-size: 25px;
+	letter-spacing: 3px;
 }
 
 .form-check {
