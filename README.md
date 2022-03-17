@@ -46,6 +46,8 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ## My process
 
+HTMl, then CSS, then JS, added bootstrap.
+
 ### Built with
 
 - Semantic HTML5 markup
