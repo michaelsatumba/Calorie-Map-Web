@@ -24,7 +24,7 @@ This is a solution to the [IP address tracker challenge on Frontend Mentor](http
 
 Users should be able to:
 
-- Display calories expended if walked from point a to point b.
+- Display calories expended if walked, biked, or driven from point a to point b.
 
 ### Screenshot
 
@@ -103,14 +103,13 @@ I learned how to use MapBox and gathered more experience using google and stacko
 ```
 
 ```js
-function remove() {
-	let steps = document.querySelector('.directions-control-directions');
-	// steps.style.display = 'none'; // works!
-
-	if (steps.style.display != 'none') {
-		steps.style.display = 'none';
+function directionsToggle() {
+	if (document.getElementById('flexSwitchCheckChecked').checked == true) {
+		document.querySelector('.directions-control-directions').style.display =
+			'inherit';
 	} else {
-		steps.style.display = 'inherit';
+		document.querySelector('.directions-control-directions').style.display =
+			'none';
 	}
 }
 ```
