@@ -33,7 +33,7 @@ function setupMap(center) {
 		accessToken: mapboxgl.accessToken,
 		unit: 'imperial',
 		profile: 'mapbox/walking',
-		alternatives: true,
+		alternatives: false,
 		congestion: true,
 		controls: {
 			inputs: true,
@@ -210,14 +210,23 @@ function setupMap(center) {
 		const seconds = e.route[0].duration;
 		const minutes = seconds / 60;
 		// console.log(minutes); // Logs the duration in minutes.
-		let result = ((3.5 * (weight.value * 0.45359237) * 3.5) / 200) * minutes;
+		if (e.route[0].weight_name == 'cyclability') {
+			MET = 8;
+		} else if (e.route[0].weight_name == 'pedestrian') {
+			MET = 3.5;
+		} else {
+			MET = 1;
+		}
+		let result = ((MET * (weight.value * 0.45359237) * 3.5) / 200) * minutes;
 		document.getElementById('caloriesExpended').innerHTML = Math.floor(result);
-
 		weight.addEventListener('input', () => {
-			let result = ((3.5 * (weight.value * 0.45359237) * 3.5) / 200) * minutes;
+			let result = ((MET * (weight.value * 0.45359237) * 3.5) / 200) * minutes;
 			document.getElementById('caloriesExpended').innerHTML =
 				Math.floor(result);
 		});
+		document.getElementById('flexSwitchCheckChecked').checked = true;
+		document.querySelector('.directions-control-directions').style.display =
+			'inherit';
 	});
 
 	map.addControl(directions, 'top-left');
@@ -225,6 +234,8 @@ function setupMap(center) {
 	// Calories burned per minute = (MET x body weight in Kg x 3.5) ÷ 200
 	// Calories burned = ((MET x body weight in Kg x 3.5) ÷ 200) * minute
 	// MET walking = 3
+	// MET cycling = 8
+	// MET driving = 1
 	// lbs to kg = lbs * 0.45359237
 	//EXAMPLE
 	/*
@@ -232,42 +243,14 @@ function setupMap(center) {
 		const walkingMins = 60
         ((3 * (160 * 0.45359237) * 3.5 ) / 200) * 60
 	*/
-
-	// // frustrating!
-	// function remove() {
-	// 	// console.log(directions.options.controls.instructions);
-	// 	// directions.options.controls.instructions = true;
-	// 	// console.log(directions.options.controls.instructions);
-	// 	alert('hello');
-	// }
 }
 
-function remove() {
-	let steps = document.querySelector('.directions-control-directions');
-
-	// let input = document.querySelector('.form-check-input');
-
-	steps.style.display !== 'none'
-		? (steps.style.display = 'none')
-		: (steps.style.display = 'inherit');
+function directionsToggle() {
+	if (document.getElementById('flexSwitchCheckChecked').checked == true) {
+		document.querySelector('.directions-control-directions').style.display =
+			'inherit';
+	} else {
+		document.querySelector('.directions-control-directions').style.display =
+			'none';
+	}
 }
-
-// on refresh calls functions
-// window.onload = function () {
-// 	let steps = document.querySelector('.directions-control-directions');
-
-// 	let input = document.querySelector('.form-check-input');
-
-// 	if (steps.style.display !== 'none') {
-// 		steps.style.display = 'none';
-// 	} else {
-// 		steps.style.display = 'inherit';
-// 	}
-// };
-
-// function traffic() {
-// 	let traffic = document.getElementById(
-// 		'mapbox-directions-profile-driving-traffic'
-// 	);
-// 	traffic.target = '_blank';
-// }
