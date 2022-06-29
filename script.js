@@ -205,21 +205,16 @@ function setupMap(center) {
 	directions.on('route', function (e) {
 		// console.log(e.route); // Logs the current route shown in the interface.
 		// console.log(e.route[0].distance); // Logs the distance in meters
-		// const distanceMeters = e.route[0].distance;
-		// const distanceMiles = distanceMeters * 0.000621;
 		// console.log(distanceMiles); // Logs the distance in miles.
 		// console.log(e.route[0].duration); // Logs the duration in seconds.
 		const seconds = e.route[0].duration;
 		const minutes = seconds / 60;
 		// console.log(minutes); // Logs the duration in minutes.
+		let result = ((3.5 * (weight.value * 0.45359237) * 3.5) / 200) * minutes;
+		document.getElementById('caloriesExpended').innerHTML = Math.floor(result);
+
 		weight.addEventListener('input', () => {
-			// alert(weight.value);
-			// console.log(weight.value);
-			let x = weight.value;
-			let y = minutes;
-			// console.log(x);
-			// console.log(y);
-			let result = ((3.5 * (x * 0.45359237) * 3.5) / 200) * y;
+			let result = ((3.5 * (weight.value * 0.45359237) * 3.5) / 200) * minutes;
 			document.getElementById('caloriesExpended').innerHTML =
 				Math.floor(result);
 		});
@@ -249,15 +244,12 @@ function setupMap(center) {
 
 function remove() {
 	let steps = document.querySelector('.directions-control-directions');
-	// steps.style.display = 'none'; // works!
 
-	let input = document.querySelector('.form-check-input');
+	// let input = document.querySelector('.form-check-input');
 
-	if (steps.style.display !== 'none') {
-		steps.style.display = 'none';
-	} else {
-		steps.style.display = 'inherit';
-	}
+	steps.style.display !== 'none'
+		? (steps.style.display = 'none')
+		: (steps.style.display = 'inherit');
 }
 
 // on refresh calls functions
