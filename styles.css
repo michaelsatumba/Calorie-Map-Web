@@ -36,20 +36,11 @@ body {
 	align-self: flex-end;
 }
 
-/* .form-check-input:focus {
-	background-color: red;
-} */
-
 .form-check-label {
 	color: white;
 }
 
 #map {
-	/* background-color: red; */
 	width: 100vw;
 	height: 100vh;
-}
-
-.directions-control-directions {
-	/* display: flex; */
 }
