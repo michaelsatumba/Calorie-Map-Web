@@ -13,6 +13,7 @@ body {
 
 .center {
 	background: url('./images/pattern-bg.png');
+	background-size: cover;
 	display: flex;
 	flex-flow: column;
 	height: 100%;
